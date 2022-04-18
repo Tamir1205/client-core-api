@@ -1,6 +1,6 @@
 package com.example.clientcoreapi.service;
 
-import model.ClientModel;
+import com.example.clientcoreapi.model.ClientModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ClientServiceImplementation implements ClientService {
+public class ClientServiceOldImpl implements ClientServiceOld {
     private static HashMap<String, ClientModel> ClientMap = new HashMap<>();
 
     static {

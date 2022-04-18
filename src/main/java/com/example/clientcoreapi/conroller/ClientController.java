@@ -1,49 +1,39 @@
 package com.example.clientcoreapi.conroller;
 
+import com.example.clientcoreapi.model.ClientRequest;
+import com.example.clientcoreapi.model.ClientResponse;
 import com.example.clientcoreapi.service.ClientService;
-import model.ClientModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/client")
 public class ClientController {
-@Autowired
-private ClientService clientService;
     @Autowired
-    Environment env;
+    private ClientService clientService;
+
     @PostMapping
-    public ClientModel createClient(@Valid @RequestBody ClientModel clientModel) {
-        return clientService.createClient(clientModel);
+    public ClientResponse createClient(@RequestBody ClientRequest clientRequest){
+        return clientService.createClient(clientRequest);
     }
-
-    @PutMapping("/{clientId}")
-    public ClientModel updateClient(@PathVariable String clientId, @Valid @RequestBody ClientModel clientModel) {
-        return clientService.updateClient(clientId,clientModel);
-
+    @PutMapping
+    public ClientResponse updateClient(@RequestParam String clientId, @RequestBody
+            ClientRequest clientRequest){
+        clientRequest.setClientId(clientId);
+    return clientService.updateClient(clientRequest);
     }
-
-    @GetMapping("/all")
-    public List<ClientModel> getAllClients() {
-        return clientService.getAllClients();
-    }
-
-    @GetMapping("/{clientId}")
-    public ClientModel getClientById(@PathVariable String clientId) {
+    @GetMapping
+    public ClientResponse getClientById(@RequestParam String clientId){
         return clientService.getClientById(clientId);
     }
-
-    @DeleteMapping("/{clientId}")
-    public ClientModel deleteClient(@PathVariable String clientId) {
-        return clientService.deleteClient(clientId);
-
+    @GetMapping("/all")
+    public List<ClientResponse> getAllClients(){
+        return clientService.getAllClients();
     }
-    @GetMapping("/check")
-    public String clientCheck (){
-        return new String("Client core api is working correctly at " + env.getProperty("local.server.port"));
+    @DeleteMapping
+    public void deleteClientById(@RequestParam String clientId){
+        clientService.deleteClientById(clientId);
     }
-  }
+}

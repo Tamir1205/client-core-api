@@ -41,6 +41,7 @@ public class ClientServiceImpl implements ClientService{
         ClientEntity dbEntity=clientRepository.getClientEntitiesByClientId(clientRequest.getClientId());
         clientEntity.setId(dbEntity.getId());
 
+
         clientEntity=clientRepository.save(clientEntity);
         return modelMapper.map(clientEntity,ClientResponse.class);
     }

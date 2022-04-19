@@ -47,3 +47,4 @@ private ClientServiceOld clientServiceOld;
         return new String("Client core api is working correctly at " + env.getProperty("local.server.port"));
     }
   }
+
